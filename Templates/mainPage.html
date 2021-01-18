@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="/static/styles.css"/>
+    </head>
+
+    <body>
+        <center>
+		<H1> Welcome on our shop </H1> 
+		    <a href="{{ url_for('home') }}" class="navbar-brand">Home</a>
+            <a href="{{ url_for('product') }}" class="navbar-item">Products</a>
+            <a href="{{ url_for('location') }}" class="navbar-item">Locations</a>
+            <a href="{{ url_for('movement') }}" class="navbar-item">Movements</a>
+			<a href="{{ url_for('report') }}" class="navbar-item">Reports</a>
+       </center>
+
+    </body>
+</html>

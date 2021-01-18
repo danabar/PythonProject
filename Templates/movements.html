@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="/static/styles.css"/>
+    </head>
+
+    <body>
+	
+        <center>
+		    <a href="{{ url_for('home') }}" class="navbar-brand">Home</a>
+            <a href="{{ url_for('product') }}" class="navbar-item">Products</a>
+            <a href="{{ url_for('location') }}" class="navbar-item">Locations</a>
+            <a href="{{ url_for('movement') }}" class="navbar-item">Movements</a>
+			<a href="{{ url_for('report') }}" class="navbar-item">Reports</a>
+       </center>
+	   <table style="border:1px solid black;margin-top: 20px;" >
+	   <tr style="border:1px solid black;">
+	   {% for header in headings %}
+	   <th style="border:1px solid black;">{{ header}}</th>
+	   {% endfor %}
+	   </tr>
+	   {% for row in data %}
+	    <tr style="border:1px solid black;">
+         {% for cell in row %}
+		 <td style="border:1px solid black;"> {{ cell }} </td>
+	     {% endfor %}
+		</tr>
+	   {% endfor %}
+	   </table>
+  <form action="http://localhost:5000/add_edit_movement" method="post">
+	<fieldset style="margin-top: 50px;width:575px">
+    <legend>Movement Edit/Add Form:</legend>
+	<script type=text/javascript>
+  function checkboxClicked() {
+      var checkBox = document.getElementById("is-new");
+	  if(checkBox.checked){
+        document.getElementById("movement-id").style.display = "none";
+		document.getElementById("movement-id-label").style.display = "none";
+		document.getElementById("movement-id").value = "";
+
+      }else{
+	    document.getElementById("movement-id").style.display = "";
+	    document.getElementById("movement-id-label").style.display = "";
+		document.getElementById("movement-id").required = "required";
+	  }
+     
+      return false;
+    }
+</script>
+  
+ <label id="is-new-label" style="padding:3px;" >Is New:</label>
+	<input type="checkbox" id="is-new" name="is-new" onclick="checkboxClicked()"/>
+	<br/>
+	 <label id="movement-id-label" style="padding:3px;" >Movement ID:</label>
+	<input type = "text" name = "movement-id" id = "movement-id" style="margin:3px;" />
+    <br/>
+	
+	  <label style="padding:3px;" >Product:</label>
+	  
+    <select name="select-product" id="select-product" required>
+	{% for product_option in products_options %}
+          <option value="{{product_option[0]}}">{{product_option[1]}}</option>
+    {% endfor %}    
+        </select>
+	  <br/>
+	   <label style="padding:3px;">From Location:</label>
+      <select name="select-from-location" id="select-from-location">
+	  <option value=""></option>
+	{% for location_option in locations_options %}
+          <option value="{{location_option[0]}}">{{location_option[1]}} {{location_option[2]}} {{location_option[3]}}</option>
+    {% endfor %}    
+        </select>
+	  <br>
+	   <label style="padding:3px;">To Location:</label>
+	   <select name="select-to-location" id="select-to-location">
+	   <option value=""></option>
+	{% for location_option in locations_options %}
+          <option value="{{location_option[0]}}">{{location_option[1]}} {{location_option[2]}} {{location_option[3]}}</option>
+    {% endfor %}    
+        </select>
+	   <br/>
+	   <input type="submit" id="add_edit_movement" name="add_edit_movement" value="Add/Edit" style="margin:3px;">
+	</fieldset>
+  </form>
+    </body>
+</html>

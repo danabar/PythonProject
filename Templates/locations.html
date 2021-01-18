@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="/static/styles.css"/>
+    </head>
+
+    <body>
+	
+        <center>
+		    <a href="{{ url_for('home') }}" class="navbar-brand">Home</a>
+            <a href="{{ url_for('product') }}" class="navbar-item">Products</a>
+            <a href="{{ url_for('location') }}" class="navbar-item">Locations</a>
+            <a href="{{ url_for('movement') }}" class="navbar-item">Movements</a>
+			<a href="{{ url_for('report') }}" class="navbar-item">Reports</a>
+       </center>
+
+	   <table style="border:1px solid black;margin-top: 20px;" >
+	   <tr style="border:1px solid black;">
+	   {% for header in headings %}
+	   <th style="border:1px solid black;">{{ header}}</th>
+	   {% endfor %}
+	   </tr>
+	   {% for row in data %}
+	    <tr style="border:1px solid black;">
+         {% for cell in row %}
+		 <td style="border:1px solid black;"> {{ cell }} </td>
+	     {% endfor %}
+		</tr>
+	   {% endfor %}
+	   </table>
+	<form action="http://localhost:5000/add_edit_location" method="post">
+	<fieldset style="margin-top: 50px;width:575px">
+    <legend>Location Edit/Add Form:</legend>
+	<script type=text/javascript>
+  function checkboxClicked() {
+      var checkBox = document.getElementById("is-new");
+	  if(checkBox.checked){
+        document.getElementById("location-id").style.display = "none";
+		document.getElementById("location-id-label").style.display = "none";
+		document.getElementById("location-id").value = "";
+      }else{
+	    document.getElementById("location-id").style.display = "";
+	    document.getElementById("location-id-label").style.display = "";
+		document.getElementById("location-id").required = "required";
+	  }
+     
+      return false;
+    }
+</script>
+  
+ <label id="is-new-label" style="padding:3px;" >Is New:</label>
+	<input type="checkbox" id="is-new" name="is-new" onclick="checkboxClicked()"/>
+	<br/>
+	 <label id="location-id-label" style="padding:3px;" >Location ID:</label>
+	<input type = "text" name = "location-id" id = "location-id" style="margin:3px;" />
+    <br/>
+	
+	  <label style="padding:3px;" >City:</label>
+      <input type = "text" id = "city"  style="margin:3px;" name = "city" required />
+	  <br/>
+	   <label style="padding:3px;">Street:</label>
+      <input type = "text" id = "street" name = "street" style="margin:3px;" />
+	  <br>
+	   <label style="padding:3px;">Building Number:</label>
+	   <input type = "number" id = "building-number" name = "building-number" min="0" value="0" style="margin:3px;"/>
+	   <br/>
+	   <input type="submit" id="add_edit_location" name="add_edit_location" value="Add/Edit" style="margin:3px;">
+	</fieldset>
+	</form>
+    </body>
+	
+</html>

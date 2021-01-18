@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="\static\site.css">
+    </head>
+
+    <body>
+        <center>
+		    <a href="{{ url_for('home') }}" class="navbar-brand">Home</a>
+            <a href="{{ url_for('product') }}" class="navbar-item">Products</a>
+            <a href="{{ url_for('location') }}" class="navbar-item">Locations</a>
+            <a href="{{ url_for('movement') }}" class="navbar-item">Movements</a>
+			<a href="{{ url_for('report') }}" class="navbar-item">Reports</a>
+       </center>
+	   
+	   <table>
+	   <tr>
+	   {% for header in headings %}
+	   <th>{{ header}}</th>
+	   {% endfor %}
+	   </tr>
+	   {% for row in data %}
+	    <tr>
+         {% for cell in row %}
+		 <td> {{ cell }} </td>
+	     {% endfor %}
+		</tr>
+	   {% endfor %}
+	   </table>
+    </body>
+</html>
